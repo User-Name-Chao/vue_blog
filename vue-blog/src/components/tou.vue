@@ -3,15 +3,16 @@
     <header>
       <div class="nav">
         <router-link to="/homepage" id="menu_btn" class="target menu_btn">
-          <i class="iconfont">&#xe632;</i>
+          <i class="el-icon-s-home"></i>
           <span>主页</span>
         </router-link>
        <!-- <router-link to="/" id="menu_btn" class="target menu_btn">
           <i class="iconfont">&#xe632;</i>
           <span>关于</span>
         </router-link> -->
-        <router-link to="/editor_tool" id="editor_tool" class="target">
-          <span>富文本</span>
+        <router-link to="/mavon_editor" id="mavon_editor" class="target">
+          <i class="el-icon-edit"></i>
+          <span>MarkDown</span>
         </router-link>
 
         <form class="search-form" autocomplete="off" @submit.prevent="onSubmit">

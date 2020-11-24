@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import homepage from '@/components/homepage'
 import list from '@/components/list'
 import article from '@/components/article'
-import editor from '@/components/editor'
+import mavon_editor from '@/components/mavon_editor'
 
 Vue.use(Router)
 export default new Router({
@@ -34,9 +34,9 @@ export default new Router({
            component: article,
          },
         {
-          path: '/editor_tool',
-          name: 'editor_tool',
-          component: editor,
+          path: '/mavon_editor',
+          name: 'mavon_editor',
+          component: mavon_editor,
         }
       ]
      },

@@ -1,16 +1,16 @@
 <template>
   <div id="article">
     <div
-    :class="this.big?'quanping':''"
-    class="xiangqing" >
-    <i class="iconfont" @click="quanping">&#xe690;</i>
-    <div class="wenzhang" v-html="article"  @click='photo($event)' />
-    <div class="foot">
+      :class="this.big?'quanping':''"
+      class="xiangqing">
+      <i class="iconfont" @click="quanping">&#xe690;</i>
+      <div class="wenzhang" v-html="article" @click='photo($event)'/>
+      <div class="foot">
         &ensp;如有疑问请联系作者，QQ：384019118
-    </div>
+      </div>
     </div>
     <div @click="close" class="photo" v-if="src">
-      <img  :src="src" alt="图片请求失败">
+      <img :src="src" alt="图片请求失败">
     </div>
   </div>
 </template>
@@ -42,7 +42,6 @@ export default {
       // get请求
       this.$axios({
         method: "get",
-        // url: "/json/article",
         url: "/blog/get_article_detail/",
         params: {
           id: this.$route.params.id
