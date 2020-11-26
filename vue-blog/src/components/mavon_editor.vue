@@ -13,7 +13,7 @@
                 </el-col>
                 <el-col :span="13">
                   <el-form-item label="文章类型">
-                    <el-select :popper-append-to-body="false" v-model="form.kind" placeholder="文章类型">
+                    <el-select v-model="form.kind" placeholder="文章类型">
                       <el-option label="一" value="1"></el-option>
                       <el-option label="二" value="2"></el-option>
                     </el-select>
@@ -76,7 +76,7 @@
 <script>
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-  import axios from "axios";
+  import marked from 'marked'
 
   export default {
     name: "mavon_editor",
@@ -228,7 +228,8 @@
       },
     },
     mounted() {
-
+      //通过marked()转译
+      // this.content = marked('')
     },
   }
 </script>
@@ -251,11 +252,6 @@
     height: 130px;
     line-height: 13px;
     overflow: auto;
-  }
-  /*修正下拉框位置*/
-  .el-select-dropdown {
-    top: 50px !important;
-    left: 0 !important;
   }
   .el-main {
     overflow: hidden;

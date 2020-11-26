@@ -14,6 +14,14 @@
           <i class="el-icon-edit"></i>
           <span>MarkDown</span>
         </router-link>
+        <router-link to="/form_example" id="form_example" class="target">
+          <i class="el-icon-edit"></i>
+          <span>表单</span>
+        </router-link>
+        <router-link to="/quill_editor" id="quill_editor" class="target">
+          <i class="el-icon-edit"></i>
+          <span>富文本</span>
+        </router-link>
 
         <form class="search-form" autocomplete="off" @submit.prevent="onSubmit">
           <input
