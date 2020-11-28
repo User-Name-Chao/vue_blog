@@ -1,7 +1,7 @@
 <template>
   <div id="list">
     <div class="c-list">
-      <router-link tag="div" :to="'/articles/'+item.id" v-for="item in  articlelist" :key="item.id" class="post-content">
+      <router-link tag="div" :to="'/articles/'+item.id+'/'+thispage" v-for="item in articlelist" :key="item.id" class="post-content">
         <img class="picture" :src="item.image" />
         <div class="cont">
           <p>
@@ -36,9 +36,8 @@
             v-for="(item,id) in pagelist"
             :key="id"
             :class="'page_span_'+id "
-            class="pagination ye"
-          >
-            <a id="page_id3" :class="thispage==item?'pagef':''">
+            class="pagination ye">
+            <a :id="'page_id'+item" :class="thispage==item?'pagef':''">
              {{item}}
               <i class="iconfont page_icon" @click="getthispagearticlelist(item)"></i>
             </a>
@@ -66,17 +65,19 @@ export default {
       pagenum: "",
       pagelist: [],
       articlelist: [],
-      thispage: "",
-      gengduo: false
+      thispage: 1,
+      gengduo: false,
     };
   },
   methods: {
     // get获取所有文章列表
-    getallarticlelist() {
+    getallarticlelist(thispage) {
       this.$axios({
         method: "post",
-        // url: "/json/article/pageQuery"
         url: "/blog/get_blog_list/",
+        data: this.qs.stringify({
+          page: thispage
+        })
       }).then(
         res => {
           console.log("==============", res);
@@ -88,7 +89,7 @@ export default {
           }
           this.articlelist = res.data.data;
           this.pagenum = res.data.total;
-          this.thispage = 1;
+          this.thispage = res.data.page;
           this.getpagelist();
         },
         err => {
@@ -97,13 +98,13 @@ export default {
       );
     },
     // get获取【标签】文章列表
-    getLabelarticlelist() {
+    getLabelarticlelist(thispage) {
       this.$axios({
         method: "post",
-        // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
-          Label: this.Labelid
+          Label: this.Labelid,
+          page: thispage
         })
       }).then(
         res => {
@@ -125,13 +126,14 @@ export default {
       );
     },
     // get获取【专栏】文章列表
-    getseriesarticlelist() {
+    getseriesarticlelist(thispage) {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
-          columnid: this.seriesid
+          columnid: this.seriesid,
+          page: thispage
         })
       }).then(
         res => {
@@ -152,13 +154,14 @@ export default {
       );
     },
     // get获取【时间】文章列表
-    gettimearticlelist() {
+    gettimearticlelist(thispage) {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
-          releasetimes: this.releasetimes
+          releasetimes: this.releasetimes,
+          page: thispage
         })
       }).then(
         res => {
@@ -179,13 +182,14 @@ export default {
       );
     },
     // get获取【搜索】文章列表
-    getsearcharticlelist() {
+    getsearcharticlelist(thispage) {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
-          search: this.search
+          search: this.search,
+          page: thispage
         })
       }).then(
         res => {
@@ -210,7 +214,6 @@ export default {
     getpagelabelarticlelist(thispage) {
       this.$axios({
         method: "post",
-        // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
           Label: this.Labelid,
@@ -240,7 +243,6 @@ export default {
     getpageseriesarticlelist(thispage) {
       this.$axios({
         method: "post",
-        // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
           seriesid: this.seriesid,
@@ -329,7 +331,6 @@ export default {
     getpagesearcharticlelist(thispage) {
       this.$axios({
         method: "post",
-        // url: "/json/article/pageQuery",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
           page: thispage,
@@ -428,9 +429,16 @@ export default {
           clearInterval(timer);
         }
       }, 16);
-    }
+    },
+  },
+  beforeCreate() {
+
+  },
+  created() {
+
   },
   mounted() {
+    this.thispage = this.$route.params.page
     if (
         this.$route.query.Labelid ||
         this.$route.query.seriesid ||
@@ -442,8 +450,8 @@ export default {
           this.search = "";
           this.releasetimes = "";
           this.seriesid = "";
-          this.getLabelarticlelist();
-          this.thispage = 1;
+          this.getLabelarticlelist(this.thispage);
+          // this.thispage = 1;
         }
            //当series发生变化
         if (this.$route.query.seriesid) {
@@ -451,28 +459,28 @@ export default {
           this.Labelid = "";
           this.releasetimes = "";
           this.search = "";
-          this.getseriesarticlelist();
+          this.getseriesarticlelist(this.thispage);
         }
         if (this.$route.query.releasetimes) {
           this.releasetimes = this.$route.query.releasetimes;
           this.Labelid = "";
           this.seriesid = "";
           this.search = "";
-          this.gettimearticlelist();
+          this.gettimearticlelist(this.thispage);
         }
         if (this.$route.query.search) {
           this.search = this.$route.query.search;
           this.Labelid = "";
           this.seriesid = "";
           this.releasetimes = "";
-          this.getsearcharticlelist();
+          this.getsearcharticlelist(this.thispage);
         }
         }
      //无参数时
       else {
         this.seriesid = "";
         this.Labelid = "";
-        this.getallarticlelist();
+        this.getallarticlelist(this.thispage);
       }
   },
   //监听
@@ -492,8 +500,8 @@ export default {
           this.search = "";
           this.releasetimes = "";
           this.seriesid = "";
-          this.getLabelarticlelist();
-          this.thispage = 1;
+          this.getLabelarticlelist(this.thispage);
+          // this.thispage = 1;
         }
         //当series发生变化
         if (to.query.seriesid) {
@@ -501,28 +509,28 @@ export default {
           this.Labelid = "";
           this.releasetimes = "";
           this.search = "";
-          this.getseriesarticlelist();
+          this.getseriesarticlelist(this.thispage);
         }
         if (to.query.releasetimes) {
           this.releasetimes = to.query.releasetimes;
           this.Labelid = "";
           this.seriesid = "";
           this.search = "";
-          this.gettimearticlelist();
+          this.gettimearticlelist(this.thispage);
         }
         if (to.query.search) {
           this.search = to.query.search;
           this.Labelid = "";
           this.seriesid = "";
           this.releasetimes = "";
-          this.getsearcharticlelist();
+          this.getsearcharticlelist(this.thispage);
         }
       }
       //无参数时
       else {
         this.seriesid = "";
         this.Labelid = "";
-        this.getallarticlelist();
+        this.getallarticlelist(this.thispage);
       }
     }
   }

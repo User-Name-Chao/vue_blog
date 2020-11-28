@@ -10,17 +10,9 @@
           <i class="iconfont">&#xe632;</i>
           <span>关于</span>
         </router-link> -->
-        <router-link to="/mavon_editor" id="mavon_editor" class="target">
+        <router-link to="/empty_page" id="empty_page" class="target">
           <i class="el-icon-edit"></i>
           <span>MarkDown</span>
-        </router-link>
-        <router-link to="/form_example" id="form_example" class="target">
-          <i class="el-icon-edit"></i>
-          <span>表单</span>
-        </router-link>
-        <router-link to="/quill_editor" id="quill_editor" class="target">
-          <i class="el-icon-edit"></i>
-          <span>富文本</span>
         </router-link>
 
         <form class="search-form" autocomplete="off" @submit.prevent="onSubmit">

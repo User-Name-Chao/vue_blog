@@ -66,7 +66,6 @@ export default {
     getlabel() {
       this.$axios({
         method: "get",
-        // url: "/json/label",
         url: "/blog/get_label_list/",
         params: {}
       }).then(
@@ -82,7 +81,6 @@ export default {
     getcolumn() {
       this.$axios({
         method: "get",
-        // url: "/json/column",
         url: "/blog/get_column_list/",
         params: {}
       }).then(
@@ -98,7 +96,6 @@ export default {
     gettime() {
       this.$axios({
         method: "get",
-        // url: "/json/article/getDate",
         url: "/blog/get_time_list/",
         params: {}
       }).then(
@@ -115,12 +112,11 @@ export default {
   mounted() {
     this.getlabel()
     this.getcolumn()
-     this.gettime()
+    this.gettime()
   }
 };
 </script>
 <style scoped>
-
 .xinxi{
   width: 80%;
   margin: 0 auto;

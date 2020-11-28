@@ -8,17 +8,17 @@ import './assets/css/input_cat.css'
 import './assets/mdcss/cmdcss.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import mavonEditor from 'mavon-editor'
 
+// import mavonEditor from 'mavon-editor'
+// Vue.use(mavonEditor)
 
-Vue.use(mavonEditor)
 Vue.use(ElementUI);
 // aiox需要的包
 import axios from 'axios'
 //aciox基础url
 
-axios.defaults.baseURL = 'http://39.100.146.221:81/';
-// axios.defaults.baseURL = 'http://localhost:8081/';
+// axios.defaults.baseURL = 'http://39.100.146.221:81/';
+axios.defaults.baseURL = 'http://localhost:8081/';
 
 //将axios写成vue的原型属性
 Vue.prototype.$axios = axios;
@@ -38,6 +38,7 @@ import moment from 'moment';
 Vue.filter('dataFormat',function (datastr,pattern="YYYY-MM-DD HH:mm"){
   return moment(datastr).format(pattern)
 })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
