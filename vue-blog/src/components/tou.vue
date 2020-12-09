@@ -19,7 +19,7 @@
           <input
             type="text"
             v-model="search"
-            placeholder="请输入你要搜索的关键字"
+            placeholder="请输入搜索的关键字"
             class="searchW"
             @keyup.enter="seek"
           />
