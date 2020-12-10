@@ -13,7 +13,10 @@
         </div>
         <div class="post-content-footer">
           <span class="tag tag-time">{{item.releasetime | dataFormat}}</span>
-          <span class="post-tag" v-for="(label,index) in item.label" :key="index">{{label}}</span>
+          <span class="article_tag">
+            <span class="post-tag" v-for="(label,index) in item.label" :key="index">{{label}}</span>
+          </span>
+<!--          <span class="post-tag" v-for="(label,index) in item.label" :key="index">{{label}}</span>-->
           <span class="tag right ipad">
             <span>浏览({{item.visits}})</span>
             <span>留言({{item.comment}})</span>
@@ -540,10 +543,12 @@ export default {
 .tag {
   color: #000;
 }
+.tag-time {
+  margin-top: 12px;
+}
 .post-content {
   overflow: hidden;
-  padding-top: 16px;
-  padding-bottom: 5px;
+  padding: 5px;
   border-radius: 10px;
   margin: 13px 4px;
   transition: all 0.28s;
@@ -624,10 +629,10 @@ p {
   }
   .tag-time {
     margin-left: -250px;
-
+    margin-top: 132px;
   }
   .post-content-footer span {
-    float: left;
+    /*float: left;*/
   }
   .content {
     margin-left: 10px;
@@ -647,15 +652,12 @@ p {
       display: none;
     }
     .post-content {
-      width: 98%;
+      width: 93%;
     }
     .cont {
       width: 100%;
       float: right;
     }
-    /* .tag-time{
-      margin-top: 123px;
-    } */
     .ipad {
       position: absolute;
       left: 60%;
@@ -667,6 +669,7 @@ p {
     .post-content-footer {
       margin-top: 1px;
       min-height: 5px;
+      float: none;
     }
 
     .ipad {
@@ -675,20 +678,24 @@ p {
       top: 140px;
       margin-right: 10px;
     }
-.post-content .cont{
-    float: right;
-    width: 70%;
-}
+
+    .post-content .cont {
+      float: right;
+      width: 70%;
+    }
+
     .post-content {
-      width: 98%;
+      width: 95%;
+    }
+
+    .article_tag {
+      position: absolute;
+      right: 50%;
+      top: 140px;
     }
   }
   .picture {
     width: 25%;
-  }
-
-  .post-tag {
-    margin-right: 5%;
   }
 }
 </style>

@@ -9,7 +9,7 @@
     url('//at.alicdn.com/t/font_1334279_cubwromnnhw.ttf') format('truetype'),
     url('//at.alicdn.com/t/font_1334279_cubwromnnhw.svg#iconfont') format('svg');
   }
-  
+
 .iconfont{
     font-family: 'iconfont';
     font-size: 100px;
@@ -140,7 +140,7 @@ input,
 select,
 textarea {
     font: 12px/1.5 "Microsoft Yahei", tahoma, arial, "Hiragino Sans GB", \5b8b\4f53;
-} */
+}
 
 input,
 select,
@@ -765,7 +765,8 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    height: 60px;
+    /*height: 60px;*/
+    height: 70px;
     opacity: .7;
 }
 
@@ -811,7 +812,8 @@ header form {
 header:before {
     content: "";
     position: fixed;
-    top: 60px;
+    /*top: 60px;*/
+    top: 70px;
     z-index: 10;
     width: 200%;
     height: 36px;
@@ -1073,7 +1075,6 @@ em.tuijian {
 .pagepagin-list span {
     padding: 4px;
     border-radius: 2px;
-    border: solid 1px block;
 }
 
 .pagepagin-list a {

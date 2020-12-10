@@ -189,6 +189,7 @@ export default {
     margin-left: -5px;
     width: 100%;
     margin-top: 30px;
+    display: none;/*在屏幕宽度小于800后隐藏-张超*/
   }
   .left {
     float: left;
