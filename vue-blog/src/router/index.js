@@ -27,11 +27,17 @@ export default new Router({
           path: '/list',
           name: 'list',
           component: list,
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/list/:page',
           name: 'list_page',
           component: list,
+          meta: {
+            permission: ['admin']
+          },
         }
       ]
      },
@@ -45,32 +51,58 @@ export default new Router({
           path: '/mavon_editor',
           name: 'mavon_editor',
           component: mavon_editor,
+          meta: {
+            permission: ['admin']
+          },
+        },
+        {
+          path: '/mavon_editor/:id',
+          name: 'article_edit',
+          component: mavon_editor,
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/quill_editor',
           name: 'quill_editor',
           component: quill_editor,
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/articles/:id/:page',
           name: 'articles',
           component: article,
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/form_example',
           name: 'form_example',
           component: form_example,
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/timer_example',
           name: 'timer_example',
           component: () =>
             import('../components/timer_example'),
+          meta: {
+            permission: ['admin']
+          },
         },
         {
           path: '/get_fodler_files',
           name: 'get_fodler_files',
           component: get_fodler_files,
+          meta: {
+            permission: ['admin']
+          },
         }
       ]
     }

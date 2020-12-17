@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="24">
-    <el-col :span="18" :offset="1">
+    <el-col :span="18" :offset="3">
       <div class="markdown">
         <div class="container">
           <el-card class="box-card">
@@ -69,7 +69,7 @@
               </el-container>
             </el-form>
           </el-card>
-          <mavon-editor :subfield="false" :ishljs="true" :toolbars="markdownOption" v-model="content" ref="md" @imgAdd="imgAdd"
+          <mavon-editor :ishljs="true" :toolbars="markdownOption" v-model="content" ref="md" @imgAdd="imgAdd"
                         @change="change" @save="saveBlog" style="min-height: 750px;width: 100%;margin-bottom: 10px"/>
         </div>
       </div>
@@ -97,6 +97,7 @@
           image: '',
           kind: '',
           desc: '',
+          article_id: 0,
         },
         content: '',
         html: '',
@@ -227,9 +228,34 @@
           // _this.$message.warning(msg);
         }
       },
+
+      getarticle() {
+        // get请求
+        this.$axios({
+          method: "get",
+          url: "/blog/get_article_detail/",
+          params: {
+            id: this.form.article_id,
+          }
+        }).then(
+          res => {
+            console.log("编辑操作获取文章++++", res)
+            this.form.title = res.data.data.title //
+            this.form.image = res.data.data.image //
+            this.src = res.data.data.image //
+            this.form.kind = res.data.data.type //
+            this.form.desc = res.data.data.summary //
+            this.content = res.data.data.htmlContents //
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
     },
     mounted() {
-
+      this.form.article_id = this.$route.params.id
+      this.getarticle()
     },
   }
 </script>

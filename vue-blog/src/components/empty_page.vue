@@ -1,46 +1,36 @@
 <template>
   <div id="empty_page">
-    <el-container>
-      <el-aside style="border-radius: 3px;width:200px;margin-left: 5%;overflow: hidden;margin-bottom: 10px">
-        <el-row :gutter="24">
-          <el-col :span="14" :offset="6">
+    <el-container class="container_header">
+      <el-header>
+        <el-row :gutter="10">
+          <el-col :span="6">
             <router-link to="/mavon_editor" id="mavon_editor" class="target">
               <i class="el-icon-edit"></i>
               <span>MarkDown</span>
             </router-link>
           </el-col>
-        </el-row>
-        <el-row :gutter="24">
-          <el-col :span="14" :offset="6">
+          <el-col :span="6">
             <router-link to="/form_example" id="form_example" class="target">
               <i class="el-icon-edit"></i>
               <span>表单</span>
             </router-link>
           </el-col>
-        </el-row>
-        <el-row :gutter="24">
-          <el-col :span="14" :offset="6">
+          <el-col :span="6">
             <router-link to="/quill_editor" id="quill_editor" class="target">
               <i class="el-icon-edit"></i>
               <span>富文本</span>
             </router-link>
           </el-col>
-        </el-row>
-        <el-row :gutter="24">
-          <el-col :span="14" :offset="6">
+          <el-col :span="6">
             <router-link to="/timer_example" id="timer_example" class="target">
               <i class="el-icon-edit"></i>
               <span>定时器</span>
             </router-link>
           </el-col>
         </el-row>
-      </el-aside>
-      <el-main>
-        <el-row :gutter="24">
-          <el-col :span="24">
-            <router-view></router-view>
-          </el-col>
-        </el-row>
+      </el-header>
+      <el-main style="margin-top: 5%">
+        <router-view></router-view>
       </el-main>
     </el-container>
   </div>
@@ -63,5 +53,19 @@
 </script>
 
 <style scoped>
-
+  .container_header header {
+    border-radius: 3px;
+    width: 100%;
+    margin: 120px 0px 0px 0px;
+    font-weight: 100;
+    background-color: transparent;
+  }
+  .container_header header i {
+    font-size: 15px;
+    color: #13ce66;
+  }
+  .container_header header span {
+    font-size: 15px;
+    color: #070707;
+  }
 </style>

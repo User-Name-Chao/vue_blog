@@ -1,11 +1,22 @@
 <template>
   <div id="article">
     <el-row :gutter="24">
-      <el-col :span="18" :offset="1">
+      <el-col :span="18" :offset="3">
         <div class="xiangqing">
-          <router-link tag="div" :to="'/list/'+this_page" :key="article_id" class="post-content">
-            <i class="iconfont">返回</i>
-          </router-link>
+          <el-row :gutter="20">
+            <el-col :span="2">
+              <router-link :to="'/list/'+this_page" :key="article_id" class="post-content">
+                <i class="el-icon-s-home"></i>
+                <span>首页</span>
+              </router-link>
+            </el-col>
+            <el-col :span="2">
+              <router-link :to="'/mavon_editor/'+article_id" id="empty_page" class="target">
+                <i class="el-icon-edit"></i>
+                <span>编辑</span>
+              </router-link>
+            </el-col>
+          </el-row>
           <div class="wenzhang" v-html="article" @click='photo($event)'/>
           <div class="foot">
             &ensp;如有疑问请联系作者，QQ：8888888888
@@ -110,21 +121,7 @@
     margin-bottom: 30px;
     border-radius: 20px;
     padding: 5%;
-    padding-top: 2%;
   }
-
-  /*.quanping {*/
-  /*  border-radius: 0px;*/
-  /*  position: absolute;*/
-  /*  top: -100px;*/
-  /*  width: 60%;*/
-  /*  left: 0;*/
-  /*  right: 0;*/
-  /*  z-index: 999;*/
-  /*  padding-left: 20%;*/
-  /*  padding-right: 20%;*/
-  /*  opacity: 1;*/
-  /*}*/
 
   .iconfont {
     font-size: 25px;
@@ -136,16 +133,4 @@
     color: #ff6600;
     cursor: pointer;
   }
-
-  /*@media screen and (max-width: 800px) {*/
-  /*  .quanping {*/
-  /*    width: 96%;*/
-  /*    padding-left: 2%;*/
-  /*    padding-right: 2%*/
-  /*  }*/
-
-  /*  .iconfont {*/
-  /*    left: 88%;*/
-  /*  }*/
-  /*}*/
 </style>

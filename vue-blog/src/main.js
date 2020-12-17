@@ -17,8 +17,6 @@ Vue.use(ElementUI);
 import axios from 'axios'
 //aciox基础url
 
-// axios.defaults.baseURL = 'http://39.100.146.221:81/';
-
 axios.defaults.baseURL = 'http://39.98.139.205:81/';
 // axios.defaults.baseURL = 'http://localhost:8081/';
 
