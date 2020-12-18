@@ -1,7 +1,7 @@
 <template>
   <div id="empty_page">
     <el-container class="container_header">
-      <el-header>
+      <!--<el-header>
         <el-row :gutter="10">
           <el-col :span="6">
             <router-link to="/mavon_editor" id="mavon_editor" class="target">
@@ -28,7 +28,7 @@
             </router-link>
           </el-col>
         </el-row>
-      </el-header>
+      </el-header>-->
       <el-main style="margin-top: 5%">
         <router-view></router-view>
       </el-main>

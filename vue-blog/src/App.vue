@@ -8,8 +8,8 @@
       </div>
 
       <div class="footer">
-     Copyright © 2019 - guoang个人博客 -    <a style="color: #858585;" href="http://www.miit.gov.cn/" target=“_blank”>陕 ICP 备 19016483 号-1</a>
-    - <a style="color: #858585;" href="http://www.guoang.xyz/" target=“_blank”> www.guoang.xyz</a>
+     Copyright © 2019 - **个人博客 -    <a style="color: #858585;" href="http://39.98.139.205/" target=“_blank”>陕 ICP 备 *** 号-1</a>
+    - <a style="color: #858585;" href="http://39.98.139.205/" target=“_blank”> ***</a>
     </div>
 
     <div class="gotitle" v-if="btnFlag" @click="backTop()">
