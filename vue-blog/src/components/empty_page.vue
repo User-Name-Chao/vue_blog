@@ -55,14 +55,19 @@
 <style scoped>
   .container_header header {
     border-radius: 3px;
-    width: 100%;
-    margin: 120px 0px 0px 0px;
-    font-weight: 100;
-    background-color: transparent;
+    width: 80%;
+    left: 10%;
+    align-content: center;
+    margin: 135px 0px 0px 0px;
+    font-weight: 200;
+    max-height: 40px;
+    background-color: white;
+    /*background-color: transparent;*/ /*透明*/
   }
   .container_header header i {
     font-size: 15px;
     color: #13ce66;
+    margin-top: 21px;
   }
   .container_header header span {
     font-size: 15px;

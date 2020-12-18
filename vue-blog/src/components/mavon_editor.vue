@@ -15,9 +15,8 @@
                     </el-col>
                     <el-col :span="13">
                       <el-form-item label="文章类型">
-                        <el-select v-model="form.kind" placeholder="文章类型">
-                          <el-option label="一" value="1"></el-option>
-                          <el-option label="二" value="2"></el-option>
+                        <el-select @change="selectChanged" v-model="form.kind" placeholder="文章类型">
+                            <el-option v-for="item in article_kinds" :key="item.id" :value="item.id" :label="item.kind_name" />
                         </el-select>
                       </el-form-item>
                     </el-col>
@@ -46,7 +45,6 @@
                     <el-col :span="8">
                       <div class="demo-image__placeholder">
                         <div class="block">
-<!--                          <el-image :src="src"></el-image>-->
                           <img class="picture" :src="src" />
                         </div>
                       </div>
@@ -70,7 +68,7 @@
               </el-container>
             </el-form>
           </el-card>
-          <mavon-editor :ishljs="true" :toolbars="markdownOption" v-model="content" ref="md" @imgAdd="imgAdd"
+          <mavon-editor id="mavon_markdown" :ishljs="true" :toolbars="markdownOption" v-model="content" ref="md" @imgAdd="imgAdd"
                         @change="change" @save="saveBlog" style="min-height: 750px;width: 100%;margin-bottom: 10px"/>
         </div>
       </div>
@@ -93,6 +91,7 @@
         upload_img_url: this.$axios.defaults.baseURL + 'blog/upload_img/',
         src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
         fileList: [],
+        article_kinds:[],
         form: {
           title: '',
           image: '',
@@ -230,6 +229,27 @@
         }
       },
 
+      selectChanged(value) {
+        console.log("------***------", value);
+      },
+
+      getarticlekind() {
+        // get请求
+        this.$axios({
+          method: "get",
+          url: "/blog/get_article_kind/",
+          params: {}
+        }).then(
+          res => {
+            console.log("获取文章分类++++", res.data)
+            this.article_kinds = res.data.article_kinds //
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      },
+
       getarticle() {
         // get请求
         this.$axios({
@@ -260,11 +280,27 @@
         this.form.article_id = this.$route.params.id  // <router-link :to="{ name: 'mavon_editor', params: {id: 4}}">router3</router-link>
         this.getarticle()
       }
+      this.getarticlekind()
     },
   }
 </script>
 
 <style scoped>
+  /*markdown工具栏吸顶*/
+  .markdown-body>:first-child {
+    width: 80%;
+    height: 50px;
+    position: fixed;
+    top: 80px;
+    left: 10%;
+    align-content: center;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .5);
+  }
+  #mavon_markdown>:first-child(1) {
+    background-color: #8c939d;
+  }
+
   .demo-form-inline {
     padding-bottom: 0
   }
@@ -278,7 +314,7 @@
   }
 
   .box-card {
-    margin-bottom: 10px;
+    border-radius:0px;
     height: 270px;
   }
 
