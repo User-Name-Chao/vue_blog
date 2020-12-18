@@ -46,7 +46,8 @@
                     <el-col :span="8">
                       <div class="demo-image__placeholder">
                         <div class="block">
-                          <el-image :src="src"></el-image>
+<!--                          <el-image :src="src"></el-image>-->
+                          <img class="picture" :src="src" />
                         </div>
                       </div>
                     </el-col>
@@ -162,7 +163,7 @@
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data'}
         }).then((data) => {
-          //
+          console.log("---------------------", data);
           this.src = data.data["img_uri"]
           this.form.image = data.data["img_uri"]
         })
@@ -254,8 +255,11 @@
       }
     },
     mounted() {
-      this.form.article_id = this.$route.params.id
-      this.getarticle()
+      if (this.$route.params.id) {
+        // this.form.article_id = this.$route.query.id  //<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">router2</router-link>
+        this.form.article_id = this.$route.params.id  // <router-link :to="{ name: 'mavon_editor', params: {id: 4}}">router3</router-link>
+        this.getarticle()
+      }
     },
   }
 </script>

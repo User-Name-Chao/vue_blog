@@ -14,6 +14,14 @@
           <i class="el-icon-edit"></i>
           <span>MarkDown</span>
         </router-link>
+        <router-link :to="{ path: '/mavon_editor', query: {id: 4}}">
+          <i class="el-icon-edit"></i>
+          <span>query_get</span>
+        </router-link>
+        <router-link :to="{ name: 'mavon_editor', params: {id: 4}}">
+          <i class="el-icon-edit"></i>
+          <span>params_get</span>
+        </router-link>
 
         <form class="search-form" autocomplete="off" @submit.prevent="onSubmit">
           <input
