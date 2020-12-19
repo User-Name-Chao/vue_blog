@@ -1,85 +1,89 @@
 <template>
-  <el-row :gutter="24">
-    <el-col :span="18" :offset="3">
-      <div class="markdown">
-        <div class="container">
-          <el-card class="box-card">
-            <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
-              <el-container>
-                <el-main width="70%">
-                  <el-row :gutter="24">
-                    <el-col :span="11">
-                      <el-form-item label="标题">
-                        <el-input v-model="form.title" placeholder="标题"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="13">
-                      <el-form-item label="文章类型">
-                        <el-select @change="selectChanged" v-model="form.kind" placeholder="文章类型">
-                            <el-option v-for="item in article_kinds" :key="item.id" :value="item.id" :label="item.kind_name" />
-                        </el-select>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row :gutter="24">
-                    <el-col :span="15">
-                      <el-form-item label="封面">
-                        <el-card id="upload_img_card" class="box-card">
-                          <el-upload class="upload-demo"
-                                     action=""
-                                     :on-preview="handlePreview"
-                                     :on-remove="handleRemove"
-                                     :before-remove="beforeRemove"
-                                     multiple
-                                     :limit="1"
-                                     :on-exceed="handleExceed"
-                                     :http-request="handleSave"
-                                     accept="image/png,image/gif,image/jpg,image/jpeg"
-                                     :file-list="fileList">
-                            <el-button size="small" type="primary">点击上传</el-button>
-                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                          </el-upload>
-                        </el-card>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <div class="demo-image__placeholder">
-                        <div class="block">
-                          <img class="picture" :src="src" />
-                        </div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-main>
-                <el-aside width="30%">
-                  <el-row :gutter="24">
-                    <el-col :span="24">
-                      <el-form-item label="简介">
-                        <el-input
-                          type="textarea"
-                          :autosize="{ minRows: 9, maxRows: 9}"
-                          placeholder="请输入内容"
-                          v-model="form.desc">
-                        </el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                </el-aside>
-              </el-container>
-            </el-form>
-          </el-card>
-          <mavon-editor id="mavon_markdown" :ishljs="true" :toolbars="markdownOption" v-model="content" ref="md" @imgAdd="imgAdd"
-                        @change="change" @save="saveBlog" style="min-height: 750px;width: 100%;margin-bottom: 10px"/>
-        </div>
-      </div>
-    </el-col>
-  </el-row>
+  <div class="markdown">
+    <el-card class="box-card">
+      <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
+        <el-row :gutter="24">
+          <el-col :span="7">
+            <el-button type="text" size="mini">标题</el-button>
+            <el-input v-model="form.title" placeholder="标题"></el-input>
+          </el-col>
+          <el-col :span="7">
+            <el-button type="text" size="mini">文章类型</el-button>
+            <el-select @change="selectChanged" v-model="form.kind" placeholder="文章类型">
+              <el-option v-for="item in article_kinds" :key="item.id" :value="item.id" :label="item.kind_name"/>
+            </el-select>
+          </el-col>
+          <el-col :span="10">
+            <el-button type="primary" size="mini" @click="dialogVisible = true">选择标签</el-button>
+            <el-input v-model="form.label" placeholder="标签"></el-input>
+          </el-col>
+
+          <el-col :span="7">
+            <el-button type="text" size="mini">封面</el-button>
+              <el-card id="upload_img_card" class="box-card">
+                <el-upload class="upload-demo"
+                           action=""
+                           :on-preview="handlePreview"
+                           :on-remove="handleRemove"
+                           :before-remove="beforeRemove"
+                           multiple
+                           :limit="1"
+                           :on-exceed="handleExceed"
+                           :http-request="handleSave"
+                           accept="image/png,image/gif,image/jpg,image/jpeg"
+                           :file-list="fileList">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+              </el-card>
+          </el-col>
+          <el-col :span="7">
+              <el-button type="text" size="mini">封面预览</el-button>
+              <div class="demo-image__placeholder">
+                <div class="block">
+                  <img class="image" :src="src"/>
+                </div>
+              </div>
+          </el-col>
+
+          <el-col :span="10">
+            <el-button type="text" size="mini">简介</el-button>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 6, maxRows: 9}"
+                placeholder="请输入内容"
+                v-model="form.desc">
+              </el-input>
+          </el-col>
+        </el-row>
+      </el-form>
+      <el-dialog
+        title="选择标签"
+        :visible.sync="dialogVisible"
+        width="40%"
+        :before-close="handleClose">
+        <el-checkbox-group :min="1" :max="3" v-model="checkedLabels" @change="handleCheckedLabelsChange">
+          <el-checkbox v-for="label in labels" :label="label" :key="label">{{label}}</el-checkbox>
+        </el-checkbox-group>
+        <!--<span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible=false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible=false">确 定</el-button>
+        </span>-->
+      </el-dialog>
+      <mavon-editor id="mavon_markdown"
+                    :ishljs="true" :toolbars="markdownOption"
+                    v-model="content"
+                    ref="md"
+                    @imgAdd="imgAdd" @change="change" @save="saveBlog"/>
+    </el-card>
+  </div>
 </template>
 
 <script>
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-
+  import $ from "jquery" //在需要使用的页面中
+  const cityOptions = ['上海', '北京', '广州', '深圳'];
   export default {
     name: "mavon_editor",
     props: [],
@@ -88,12 +92,16 @@
     },
     data() {
       return {
+        dialogVisible: false,
         upload_img_url: this.$axios.defaults.baseURL + 'blog/upload_img/',
         src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
         fileList: [],
-        article_kinds:[],
+        article_kinds: [],
+        checkedLabels: [],  // 当前选中标签
+        labels:cityOptions,  // 所有可选标签
         form: {
           title: '',
+          label: '',
           image: '',
           kind: '',
           desc: '',
@@ -272,9 +280,41 @@
             console.log(err);
           }
         );
+      },
+
+      // 为了计算距离顶部的高度，当高度大于285使Markdown工具栏固定位置不随滚动显示，否则恢复正常显示
+      scrollToTop() {
+        let that = this;
+        let scrollTop = window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop;
+        that.scrollTop = scrollTop;
+        if (that.scrollTop > 285) {
+          $('.markdown-body').children().eq(0).css({"position":"fixed","left":"0","top":"0"})
+        } else {
+          $('.markdown-body').children().eq(0).css({"position":"absolute","left":"0","top":"0"})
+        }
+      },
+
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {//确认关闭弹窗时执行
+            console.log("*********1******")
+            this.form.label=this.checkedLabels.join(",")
+            done()  //关闭弹窗
+          })
+          .catch(_ => {//取消关闭弹窗时执行
+            console.log("*********2******")
+          });
+      },
+      handleCheckedLabelsChange(value) {
+        console.log(">>>>>>>>>>>>>>>>", value)
+        this.checkedLabels = value;
       }
     },
     mounted() {
+      window.addEventListener("scroll", this.scrollToTop);  //监听滚动
+
       if (this.$route.params.id) {
         // this.form.article_id = this.$route.query.id  //<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">router2</router-link>
         this.form.article_id = this.$route.params.id  // <router-link :to="{ name: 'mavon_editor', params: {id: 4}}">router3</router-link>
@@ -282,23 +322,16 @@
       }
       this.getarticlekind()
     },
+    destroyed() {
+      window.removeEventListener("scroll", this.scrollToTop);  //监听滚动
+    },
   }
 </script>
 
 <style scoped>
-  /*markdown工具栏吸顶*/
-  .markdown-body>:first-child {
-    width: 80%;
-    height: 50px;
-    position: fixed;
-    top: 80px;
-    left: 10%;
-    align-content: center;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, .5);
-  }
-  #mavon_markdown>:first-child(1) {
-    background-color: #8c939d;
+  #mavon_markdown {
+    min-height: 1400px;
+    width: 100%;
   }
 
   .demo-form-inline {
@@ -309,27 +342,13 @@
     background-color: white
   }
 
-  .container :nth-child(2) :nth-child(2) :nth-child(2) :nth-child(1) {
-    border-bottom-right-radius: 4px;
-  }
-
-  .box-card {
-    border-radius:0px;
-    height: 270px;
-  }
-
   #upload_img_card {
     height: 130px;
     line-height: 13px;
     overflow: auto;
   }
 
-  .el-main {
-    overflow: hidden;
-    padding: 0;
-  }
-
-  .el-aside {
-    overflow: hidden;
+  .image {
+    max-height: 120px;
   }
 </style>

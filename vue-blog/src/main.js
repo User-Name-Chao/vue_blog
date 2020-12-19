@@ -9,7 +9,7 @@ import './assets/mdcss/cmdcss.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-// import mavonEditor from 'mavon-editor'
+// import mavonEditor from 'mavon-editor' // 全局引入
 // Vue.use(mavonEditor)
 
 Vue.use(ElementUI);

@@ -29,7 +29,7 @@
           </el-col>
         </el-row>
       </el-header>-->
-      <el-main style="margin-top: 5%">
+      <el-main>
         <router-view></router-view>
       </el-main>
     </el-container>
