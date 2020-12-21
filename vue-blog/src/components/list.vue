@@ -12,7 +12,7 @@
           <div class="content">{{item.summary}}</div>
         </div>
         <div class="post-content-footer">
-          <span class="tag tag-time">{{item.releasetime | dataFormat}}</span>
+          <span class="tag tag-time">{{item.releasetime*1000 | dataFormat}}</span>
           <span class="article_tag">
             <span class="post-tag" v-for="(label,index) in item.label" :key="index">{{label}}</span>
           </span>
