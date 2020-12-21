@@ -23,7 +23,7 @@
             <div  v-for="(item,id) in  serieslist"
               :key="id"
               class="series">
-              <router-link  class="series-a" exact-active-class="series" :to="{path:'/list',query:{seriesid:item.id}}"><i class="iconfont">&#xe644;</i>&ensp;{{item.name}}</router-link>
+              <router-link  class="series-a" exact-active-class="series" :to="{path:'/list',query:{seriesid:item.id}}"><i class="iconfont">&#xe644;</i>&ensp;{{item.kind_name}}</router-link>
               </div>
           </div>
         </div>
