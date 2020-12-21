@@ -70,7 +70,7 @@ export default {
         params: {}
       }).then(
         res => {
-          this.Labellist= res.data.data;
+          this.Labellist= res.data.labels;
         },
         err => {
           console.log(err);

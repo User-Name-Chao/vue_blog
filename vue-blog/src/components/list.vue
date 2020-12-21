@@ -60,7 +60,7 @@ export default {
   name: "list",
   data() {
     return {
-      Label: "",
+      Labelid: "",
       seriesid: "",
       releasetimes: "",
       search: "",
@@ -106,7 +106,7 @@ export default {
         method: "post",
         url: "/blog/get_blog_list/",
         data: this.qs.stringify({
-          Label: this.Label,
+          Labelid: this.Labelid,
           page: thispage
         })
       }).then(

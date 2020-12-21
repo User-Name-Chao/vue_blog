@@ -15,7 +15,8 @@
           </el-col>
           <el-col :span="10">
             <el-button type="primary" size="mini" @click="dialogVisible = true">选择标签</el-button>
-            <el-input v-model="form.label" placeholder="标签"></el-input>
+            <el-input v-model="form.labelname" placeholder="标签"></el-input>
+            <el-input type="hidden" v-model="form.labelid"></el-input>
           </el-col>
 
           <el-col :span="7">
@@ -63,7 +64,7 @@
         width="40%"
         :before-close="handleClose">
         <el-checkbox-group :min="1" :max="3" v-model="checkedLabels" @change="handleCheckedLabelsChange">
-          <el-checkbox v-for="label in labels" :label="label" :key="label">{{label}}</el-checkbox>
+          <el-checkbox v-for="label in labels" :label="label.id+','+label.labelname" :key="label.id">{{label.labelname}}</el-checkbox>
         </el-checkbox-group>
         <!--<span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible=false">取 消</el-button>
@@ -83,7 +84,6 @@
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
   import $ from "jquery" //在需要使用的页面中
-  const cityOptions = ['上海', '北京', '广州', '深圳'];
   export default {
     name: "mavon_editor",
     props: [],
@@ -98,10 +98,11 @@
         fileList: [],
         article_kinds: [],
         checkedLabels: [],  // 当前选中标签
-        labels:cityOptions,  // 所有可选标签
+        labels:[],  // 所有可选标签
         form: {
           title: '',
-          label: '',
+          labelid: '',
+          labelname: '',
           image: '',
           kind: '',
           desc: '',
@@ -258,6 +259,23 @@
         );
       },
 
+      getarticlelabels() {
+        // get请求
+        this.$axios({
+          method: "get",
+          url: "/blog/get_label_list/",
+          params: {}
+        }).then(
+          res => {
+            console.log("获取文章标签++++", res.data)
+            this.labels = res.data.labels //
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      },
+
       getarticle() {
         // get请求
         this.$axios({
@@ -274,7 +292,10 @@
             this.src = res.data.data.image //
             this.form.kind = res.data.data.type //
             this.form.desc = res.data.data.summary //
+            this.form.labelid = res.data.data.label //
+            this.form.labelname = res.data.data.labelname //
             this.content = res.data.data.htmlContents //
+            this.checkedLabels = res.data.data.checkedlabel
           },
           err => {
             console.log(err);
@@ -300,7 +321,15 @@
         this.$confirm('确认关闭？')
           .then(_ => {//确认关闭弹窗时执行
             console.log("*********1******")
-            this.form.label=this.checkedLabels.join(",")
+            var labelidlist = new Array()
+            var labelnamelist = new Array()
+            $.each(this.checkedLabels, function (i, n) {
+              var labelinfo = n.split(",")
+              labelidlist.push(parseInt(labelinfo[0]))
+              labelnamelist.push(labelinfo[1])
+            })
+            this.form.labelid=JSON.stringify(labelidlist)
+            this.form.labelname=labelnamelist.join(",")
             done()  //关闭弹窗
           })
           .catch(_ => {//取消关闭弹窗时执行
@@ -314,14 +343,15 @@
     },
     mounted() {
       window.addEventListener("scroll", this.scrollToTop);  //监听滚动
-
       if (this.$route.params.id) {
         // this.form.article_id = this.$route.query.id  //<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">router2</router-link>
         this.form.article_id = this.$route.params.id  // <router-link :to="{ name: 'mavon_editor', params: {id: 4}}">router3</router-link>
         this.getarticle()
       }
       this.getarticlekind()
+      this.getarticlelabels()
     },
+
     destroyed() {
       window.removeEventListener("scroll", this.scrollToTop);  //监听滚动
     },
@@ -350,5 +380,9 @@
 
   .image {
     max-height: 120px;
+  }
+
+  .v-note-wrapper .v-note-panel {
+    margin-top: 43px;
   }
 </style>
