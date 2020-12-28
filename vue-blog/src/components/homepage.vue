@@ -6,7 +6,7 @@
       </div>
       <div class="r-content">
         <div class="allTag">
-          <h4 class="readmore-header">标签分类{{store_name}}</h4>
+          <h4 class="readmore-header">标签分类</h4>
           <div class="ovh">
             <router-link
               v-for="(item,id) in  Labellist"
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="readnotice-content">
-          <h4 class="readmore-header">个人信息</h4>
+          <h4 class="readmore-header">个人信息-{{store_name}}</h4>
           <div class="xinxi"><img src="../assets/img/csdn.png" alt=""> <a href="#" target=“_blank”>&ensp;&ensp;***</a></div>
         <div class="xinxi"><img src="../assets/img/qq.png" alt="">&ensp;&ensp;***</div>
        <div class="xinxi"><img src="../assets/img/mail.png" alt=""> &ensp;&ensp;***@gmail.com</div>
@@ -114,7 +114,7 @@ export default {
     this.getlabel()
     this.getcolumn()
     this.gettime()
-    this.$store.commit("setName","你好啊")
+    this.$store.commit("setName","Test Vuex")
     console.log("*******************1****", this.$store.state.name)
     console.log("*******************2****", this.$store.getters.getName)
     this.store_name = this.$store.getters.getName

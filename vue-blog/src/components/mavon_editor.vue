@@ -4,8 +4,7 @@
       <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
         <el-row :gutter="24">
           <el-col :span="7">
-            <span>{{ test_store_name }}</span>
-            <el-button type="text" size="mini">标题</el-button>
+            <el-button type="text" size="mini">标题-{{ test_store_name }}</el-button>
             <el-input v-model="form.title" placeholder="标题"></el-input>
           </el-col>
           <el-col :span="7">
