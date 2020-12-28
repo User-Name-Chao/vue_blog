@@ -6,7 +6,7 @@
       </div>
       <div class="r-content">
         <div class="allTag">
-          <h4 class="readmore-header">标签分类</h4>
+          <h4 class="readmore-header">标签分类{{store_name}}</h4>
           <div class="ovh">
             <router-link
               v-for="(item,id) in  Labellist"
@@ -59,6 +59,7 @@ export default {
       Labellist: [],
       serieslist: [],
       timelist: [],
+      store_name:""
     };
   },
   methods: {
@@ -113,6 +114,10 @@ export default {
     this.getlabel()
     this.getcolumn()
     this.gettime()
+    this.$store.commit("setName","你好啊")
+    console.log("*******************1****", this.$store.state.name)
+    console.log("*******************2****", this.$store.getters.getName)
+    this.store_name = this.$store.getters.getName
   }
 };
 </script>

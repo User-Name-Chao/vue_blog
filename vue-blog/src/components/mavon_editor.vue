@@ -4,6 +4,7 @@
       <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
         <el-row :gutter="24">
           <el-col :span="7">
+            <span>{{ test_store_name }}</span>
             <el-button type="text" size="mini">标题</el-button>
             <el-input v-model="form.title" placeholder="标题"></el-input>
           </el-col>
@@ -32,10 +33,11 @@
                            :limit="1"
                            :on-exceed="handleExceed"
                            :http-request="handleSave"
+                           :before-upload="beforeImageUpload"
                            accept="image/png,image/gif,image/jpg,image/jpeg"
                            :file-list="fileList">
                   <el-button size="small" type="primary">点击上传</el-button>
-                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                  <div slot="tip" class="el-upload__tip">只能上传jpg/png/gif/jpeg文件，且不超过2M</div>
                 </el-upload>
               </el-card>
           </el-col>
@@ -95,6 +97,7 @@
     },
     data() {
       return {
+        test_store_name:"",
         dialogVisible: false,
         upload_img_url: this.$axios.defaults.baseURL + 'blog/upload_img/',
         src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
@@ -159,6 +162,17 @@
       },
       handlePreview(file) {
         // console.log(file);
+      },
+      beforeImageUpload(file) {
+        // const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        // if (!isJPG) {
+        //   this.$message.error('上传头像图片只能是 JPG 格式!');
+        // }
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 2MB!');
+        }
+        return isLt2M;
       },
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -270,7 +284,7 @@
           params: {}
         }).then(
           res => {
-            console.log("获取文章标签++++", res.data)
+            // console.log("获取文章标签++++", res.data)
             this.labels = res.data.labels //
           },
           err => {
@@ -421,6 +435,9 @@
       },
     },
     mounted() {
+      console.log(">>>设置store_name>>1>", this.$store.state.name)
+      console.log(">>>设置store_name>>2>", this.$store.getters.getName)
+      this.test_store_name = this.$store.getters.getName
       window.addEventListener("scroll", this.scrollToTop);  //监听滚动
       if (this.$route.params.id) {
         // this.form.article_id = this.$route.query.id  //<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">router2</router-link>

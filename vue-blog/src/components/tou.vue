@@ -6,10 +6,11 @@
           <i class="el-icon-s-home"></i>
           <span>主页</span>
         </router-link>
-       <!-- <router-link to="/" id="menu_btn" class="target menu_btn">
+        <!--<router-link to="/" id="menubtn" class="target menu_btn">
           <i class="iconfont">&#xe632;</i>
           <span>关于</span>
-        </router-link> -->
+        </router-link>-->
+
         <router-link to="/empty_page" id="empty_page" class="target">
           <i class="el-icon-edit"></i>
           <span>MarkDown</span>
@@ -96,7 +97,7 @@ export default {
           this.search=""
       }
     }
-  }
+  },
 };
 </script>
 <style scoped>

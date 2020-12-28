@@ -30,6 +30,8 @@ Vue.prototype.qs = qs;
 //引入vuex
 // import Vuex from "./vuex";
 // Vue.use(Vuex)
+import store from './store/store'
+
 Vue.use(router)
 Vue.config.productionTip = false
 //导入时间插件
@@ -43,6 +45,7 @@ Vue.filter('dataFormat',function (datastr,pattern="YYYY-MM-DD HH:mm"){
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
