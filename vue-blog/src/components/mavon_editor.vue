@@ -62,14 +62,15 @@
         title="选择标签"
         :visible.sync="dialogVisible"
         width="40%"
-        :before-close="handleClose">
+        :before-close="dialogClose">
         <el-checkbox-group :min="1" :max="3" v-model="checkedLabels" @change="handleCheckedLabelsChange">
           <el-checkbox v-for="label in labels" :label="label.id+','+label.labelname" :key="label.id">{{label.labelname}}</el-checkbox>
         </el-checkbox-group>
-        <!--<span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible=false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible=false">确 定</el-button>
-        </span>-->
+        <span slot="footer" class="dialog-footer">
+          <!--<el-button @click="dialogVisible=false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible=false">确 定</el-button>-->
+          <el-button type="text" @click="open_label_box">创建新标签</el-button>
+        </span>
       </el-dialog>
       <mavon-editor id="mavon_markdown"
                     :ishljs="true" :toolbars="markdownOption"
@@ -149,19 +150,19 @@
     },
     methods: {
       handleRemove(file, fileList) {
-        console.log(file, fileList);
+        // console.log(file, fileList);
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
       handlePreview(file) {
-        console.log(file);
+        // console.log(file);
       },
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       handleSave(file) {
-        console.log("*****", file);
+        // console.log("*****", file);
         var formdata = new FormData()
         formdata.append('img_file', file.file)
         this.$axios({
@@ -171,7 +172,7 @@
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data'}
         }).then((data) => {
-          console.log("---------------------", data);
+          // console.log("---------------------", data);
           this.src = data.data["img_uri"]
           this.form.image = data.data["img_uri"]
         })
@@ -180,7 +181,7 @@
       imgAdd(pos, $file) {
         // $file 为文件
         // pos 为插入图片索引位置，这里把图片路径放在一个list中也就是img_file
-        console.log($file)
+        // console.log($file)
         // 第一步.将图片上传到服务器.
         var formdata = new FormData()
         formdata.append('img_file', $file)
@@ -222,7 +223,7 @@
             url: "/blog/save_blog/",
           }).then(
             res => {
-              console.log("==========1====", res);
+              // console.log("==========1====", res);
               if (res.data.code == 200) {
                 this.$message.success('提交成功！');
               } else {
@@ -239,7 +240,7 @@
       },
 
       selectChanged(value) {
-        console.log("------***------", value);
+        // console.log("------***------", value);
       },
 
       getarticlekind() {
@@ -250,7 +251,7 @@
           params: {}
         }).then(
           res => {
-            console.log("获取文章分类++++", res.data)
+            // console.log("获取文章分类++++", res.data)
             this.article_kinds = res.data.article_kinds //
           },
           err => {
@@ -286,7 +287,7 @@
           }
         }).then(
           res => {
-            console.log("编辑操作获取文章++++", res)
+            // console.log("编辑操作获取文章++++", res)
             this.form.title = res.data.data.title //
             this.form.image = res.data.data.image //
             this.src = res.data.data.image //
@@ -317,10 +318,10 @@
         }
       },
 
-      handleClose(done) {
+      dialogClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {//确认关闭弹窗时执行
-            console.log("*********1******")
+            // console.log("*********1******")
             var labelidlist = new Array()
             var labelnamelist = new Array()
             $.each(this.checkedLabels, function (i, n) {
@@ -333,12 +334,53 @@
             done()  //关闭弹窗
           })
           .catch(_ => {//取消关闭弹窗时执行
-            console.log("*********2******")
+            // console.log("*********2******")
           });
       },
       handleCheckedLabelsChange(value) {
-        console.log(">>>>>>>>>>>>>>>>", value)
+        // console.log(">>>>>>>>>>>>>>>>", value)
         this.checkedLabels = value;
+      },
+
+      create_label(value) {
+        var formdata = new FormData()
+        formdata.append('label', value)
+        this.$axios({
+          method: "post",
+          url: "/blog/create_label/",
+          data:formdata,
+          params: {}
+        }).then(
+          res => {
+            // console.log("创建标签成功后再次加载当前所有标签===", res)
+            this.getarticlelabels()
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      },
+
+      open_label_box() {
+        this.$prompt('请输新标签', '创建标签', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          /*inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          inputErrorMessage: '邮箱格式不正确'*/
+          inputPattern: /[\w]/,
+          inputErrorMessage: ''
+        }).then(({ value }) => {
+          /*this.$message({
+            type: 'success',
+            message: '你的邮箱是: ' + value,
+          });*/
+          this.create_label(value)  //输入内容校验通过后调用创建方法
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
+        });
       }
     },
     mounted() {
