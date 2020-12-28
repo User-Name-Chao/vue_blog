@@ -9,7 +9,8 @@
           </el-col>
           <el-col :span="7">
             <el-button type="text" size="mini">文章类型</el-button>
-            <el-select @change="selectChanged" v-model="form.kind" placeholder="文章类型">
+            <el-button type="primary" size="mini" @click="open_article_kind_box">创建类型</el-button>
+            <el-select @change="selectChanged" v-model="form.kind" placeholder="文章类型" style="width: 100%">
               <el-option v-for="item in article_kinds" :key="item.id" :value="item.id" :label="item.kind_name"/>
             </el-select>
           </el-col>
@@ -58,6 +59,7 @@
           </el-col>
         </el-row>
       </el-form>
+
       <el-dialog
         title="选择标签"
         :visible.sync="dialogVisible"
@@ -381,7 +383,42 @@
             message: '取消输入'
           });
         });
-      }
+      },
+
+      create_article_kind(value) {
+        var formdata = new FormData()
+        formdata.append('article_kind', value)
+        this.$axios({
+          method: "post",
+          url: "/blog/create_article_kind/",
+          data:formdata,
+          params: {}
+        }).then(
+          res => {
+            // console.log("创建标签成功后再次加载当前所有标签===", res)
+            this.getarticlekind()
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      },
+
+      open_article_kind_box() {
+        this.$prompt('请输新类型', '创建类型', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputPattern: /[\w]/,
+          inputErrorMessage: ''
+        }).then(({ value }) => {
+          this.create_article_kind(value)  //输入内容校验通过后调用创建方法
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
+        });
+      },
     },
     mounted() {
       window.addEventListener("scroll", this.scrollToTop);  //监听滚动
