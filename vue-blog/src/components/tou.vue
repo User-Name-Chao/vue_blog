@@ -10,10 +10,13 @@
           <i class="iconfont">&#xe632;</i>
           <span>关于</span>
         </router-link>-->
-
-        <router-link to="/empty_page" id="empty_page" class="target">
+        <router-link to="/empty_page" id="MarkDown" class="target">
           <i class="el-icon-edit"></i>
           <span>MarkDown</span>
+        </router-link>
+        <router-link to="/quill_editor" id="QuillEditor" class="target">
+          <i class="el-icon-edit"></i>
+          <span>QuillEditor</span>
         </router-link>
         <!--<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">
           <i class="el-icon-edit"></i>

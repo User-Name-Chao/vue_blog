@@ -72,6 +72,14 @@ export default new Router({
           },
         },
         {
+          path: '/quill_editor/:id',
+          name: 'quill_article_edit',
+          component: quill_editor,
+          meta: {
+            permission: ['admin']
+          },
+        },
+        {
           path: '/articles/:id/:page',
           name: 'articles',
           component: article,
