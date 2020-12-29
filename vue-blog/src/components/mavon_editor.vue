@@ -60,7 +60,6 @@
           </el-col>
         </el-row>
       </el-form>
-
       <el-dialog
         title="选择标签"
         :visible.sync="dialogVisible"
@@ -437,6 +436,7 @@
       console.log(">>>设置store_name>>1>", this.$store.state.name)
       console.log(">>>设置store_name>>2>", this.$store.getters.getName)
       this.test_store_name = this.$store.getters.getName
+      $('.markdown-body').children().eq(0).css({"position":"absolute","left":"0","top":"0","margin-bottom": "-43px"})
       window.addEventListener("scroll", this.scrollToTop);  //监听滚动
       if (this.$route.params.id) {
         // this.form.article_id = this.$route.query.id  //<router-link :to="{ path: '/mavon_editor', query: {id: 4}}">router2</router-link>
@@ -453,7 +453,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss">
+  .v-note-wrapper .v-note-panel {
+    top: 43px;
+  }
+
   #mavon_markdown {
     min-height: 1400px;
     width: 100%;
@@ -475,9 +479,5 @@
 
   .image {
     max-height: 120px;
-  }
-
-  .v-note-wrapper .v-note-panel {
-    top: 43px;
   }
 </style>
