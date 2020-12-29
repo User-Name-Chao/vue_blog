@@ -478,6 +478,6 @@
   }
 
   .v-note-wrapper .v-note-panel {
-    margin-top: 43px;
+    top: 43px;
   }
 </style>
