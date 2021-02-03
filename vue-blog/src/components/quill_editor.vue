@@ -115,7 +115,7 @@
         class="upload-demo"
         drag
         name="video_file"
-        action="http://localhost:8081/blog/upload_video/"
+        action="http://39.98.139.205:81/blog/upload_video/"
         :on-success="fnUploadSucess"
         :before-upload="beforeVideoUpload"
         accept="mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv"

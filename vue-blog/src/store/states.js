@@ -1,4 +1,6 @@
 const state = {
-  name: 'Test Name'
+  name: 'Test Name',
+  permissionList:[],
+  token:"",
 }
 export default state
