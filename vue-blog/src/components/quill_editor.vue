@@ -115,7 +115,7 @@
         class="upload-demo"
         drag
         name="video_file"
-        action="http://39.98.139.205:8081/blog/upload_video/"
+        action="http://39.98.139.205:81/blog/upload_video/"
         :on-success="fnUploadSucess"
         :before-upload="beforeVideoUpload"
         accept="mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv"
@@ -124,6 +124,19 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传.mp4文件，且不超过10M</div>
       </el-upload>
+      <!--<el-upload
+        class="upload-demo"
+        drag
+        name="video_file"
+        action="http://127.0.0.1:8081/blog/upload_video/"
+        :on-success="fnUploadSucess"
+        :before-upload="beforeVideoUpload"
+        accept="mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv"
+        multiple>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传.mp4文件，且不超过10M</div>
+      </el-upload>-->
     </el-dialog>
   </div>
 </template>

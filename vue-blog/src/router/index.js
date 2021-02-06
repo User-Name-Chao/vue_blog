@@ -41,17 +41,17 @@ const router = new Router({
           path: '/list',
           name: 'list',
           component: list,
-          meta: {
-            permission: ['admin'],
-          },
+          // meta: {
+          //   permission: ['admin'],
+          // },
         },
         {
           path: '/list/:page',
           name: 'list_page',
           component: list,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         }
       ]
     },
@@ -65,71 +65,71 @@ const router = new Router({
           path: '/mavon_editor',
           name: 'mavon_editor',
           component: mavon_editor,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/mavon_editor/:id',
           name: 'article_edit',
           component: mavon_editor,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/quill_editor',
           name: 'quill_editor',
           component: quill_editor,
-          meta: {
-            permission: ['admin'],
-            remark: "", //对于该菜单的一个解释说明
-            title: { String }, //显示在侧边栏、面包屑和标签栏的文字
-            hideInBread: true,
-            hideInMenu: true,
-            notCache: true,
-          },
+          // meta: {
+          //   permission: ['admin'],
+          //   remark: "", //对于该菜单的一个解释说明
+          //   title: { String }, //显示在侧边栏、面包屑和标签栏的文字
+          //   hideInBread: true,
+          //   hideInMenu: true,
+          //   notCache: true,
+          // },
         },
         {
           path: '/quill_editor/:id',
           name: 'quill_article_edit',
           component: quill_editor,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/articles/:id/:page',
           name: 'articles',
           component: article,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/form_example',
           name: 'form_example',
           component: form_example,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/timer_example',
           name: 'timer_example',
           component: () =>
             import('../components/timer_example'),
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         },
         {
           path: '/get_fodler_files',
           name: 'get_fodler_files',
           component: get_fodler_files,
-          meta: {
-            permission: ['admin']
-          },
+          // meta: {
+          //   permission: ['admin']
+          // },
         }
       ]
     }

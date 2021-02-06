@@ -83,7 +83,8 @@ export default {
         })
       }).then(
         res => {
-          console.log("==============", res);
+          console.log("==========1====", res);
+          console.log("==========2====", res.data);
           //分割字符串
           let arr = Object.entries(res.data.data);
           for (var i = 0; i <= arr.length - 1; i++) {
