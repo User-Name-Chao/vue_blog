@@ -111,12 +111,13 @@
                width="50%"
                :visible.sync="dialogFnOpenUpload"
                :close-on-click-modal="false">
+
       <el-upload
         class="upload-demo"
+        action=""
         drag
         name="video_file"
-        action="http://39.98.139.205:81/blog/upload_video/"
-        :on-success="fnUploadSucess"
+        :http-request="upvideoSave"
         :before-upload="beforeVideoUpload"
         accept="mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv"
         multiple>
@@ -124,19 +125,7 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传.mp4文件，且不超过10M</div>
       </el-upload>
-      <!--<el-upload
-        class="upload-demo"
-        drag
-        name="video_file"
-        action="http://127.0.0.1:8081/blog/upload_video/"
-        :on-success="fnUploadSucess"
-        :before-upload="beforeVideoUpload"
-        accept="mpg,m4v,mp4,flv,3gp,mov,avi,rmvb,mkv,wmv"
-        multiple>
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传.mp4文件，且不超过10M</div>
-      </el-upload>-->
+
     </el-dialog>
   </div>
 </template>
@@ -253,16 +242,28 @@
         this.title = title
         this.dialogFnOpenUpload = true
       },
-      fnUploadSucess(res) {
-        console.log("????????", res)
-        this.editor.focus()
-        // let url = uploadConfig.fileRead + res.model.data.id
-        let url = res.video_uri
-        let length = this.editor.getSelection().index
-        this.editor.insertEmbed(length, this.uploadType, url)
-        this.editor.setSelection(length + 1)
-        this.dialogFnOpenUpload = false
-      }
+      upvideoSave(file) {//调用上传接口
+        console.log("*****", file);
+        var formdata = new FormData()
+        formdata.append('video_file', file.file)
+        this.$axios({
+          // 请求地址
+          url: '/blog/upload_video/',
+          method: 'post',
+          data: formdata,
+          headers: {'Content-Type': 'multipart/form-data'}
+        }).then((res) => {
+          console.log("---------------------", res);
+          this.editor.focus()
+          // let url = uploadConfig.fileRead + res.model.data.id
+          let url = res.data.video_uri
+          let length = this.editor.getSelection().index
+          this.editor.insertEmbed(length, this.uploadType, url)
+          this.editor.setSelection(length + 1)
+          this.dialogFnOpenUpload = false
+
+        })
+      },
     },
 
     computed: {
