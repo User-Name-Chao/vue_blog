@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="10">
             <el-button type="primary" size="mini" @click="dialogVisible = true">选择标签</el-button>
-            <el-input v-model="form.labelname" placeholder="标签"></el-input>
+            <el-input v-model="form.label_name" placeholder="标签"></el-input>
             <el-input type="hidden" v-model="form.labelid"></el-input>
           </el-col>
 
@@ -66,7 +66,7 @@
         width="40%"
         :before-close="dialogClose">
         <el-checkbox-group :min="1" :max="3" v-model="checkedLabels" @change="handleCheckedLabelsChange">
-          <el-checkbox v-for="label in labels" :label="label.id+','+label.labelname" :key="label.id">{{label.labelname}}</el-checkbox>
+          <el-checkbox v-for="label in labels" :label="label.id+','+label.label_name" :key="label.id">{{label.label_name}}</el-checkbox>
         </el-checkbox-group>
         <span slot="footer" class="dialog-footer">
           <!--<el-button @click="dialogVisible=false">取 消</el-button>
@@ -106,7 +106,7 @@
         form: {
           title: '',
           labelid: '',
-          labelname: '',
+          label_name: '',
           image: '',
           kind: '',
           desc: '',
@@ -181,7 +181,7 @@
         formdata.append('img_file', file.file)
         this.$axios({
           // 请求地址
-          url: '/blog/upload_img/',
+          url: '/vue_blog/upload_img/',
           method: 'post',
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data'}
@@ -202,7 +202,7 @@
         // this.img_file[pos] = $file
         this.$axios({
           // 请求地址
-          url: '/blog/upload_img/',
+          url: '/vue_blog/upload_img/',
           method: 'post',
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data'}
@@ -234,7 +234,7 @@
           this.$axios({
             method: "post",
             data: formData,
-            url: "/blog/save_blog/",
+            url: "/vue_blog/save_blog/",
           }).then(
             res => {
               // console.log("==========1====", res);
@@ -261,7 +261,7 @@
         // get请求
         this.$axios({
           method: "get",
-          url: "/blog/get_article_kind/",
+          url: "/vue_blog/get_article_kind/",
           params: {}
         }).then(
           res => {
@@ -278,7 +278,7 @@
         // get请求
         this.$axios({
           method: "get",
-          url: "/blog/get_label_list/",
+          url: "/vue_blog/get_label_list/",
           params: {}
         }).then(
           res => {
@@ -295,7 +295,7 @@
         // get请求
         this.$axios({
           method: "get",
-          url: "/blog/get_article_detail/",
+          url: "/vue_blog/get_article_detail/",
           params: {
             id: this.form.article_id,
           }
@@ -308,7 +308,7 @@
             this.form.kind = res.data.data.type //
             this.form.desc = res.data.data.summary //
             this.form.labelid = res.data.data.label //
-            this.form.labelname = res.data.data.labelname //
+            this.form.label_name = res.data.data.label_name //
             this.content = res.data.data.htmlContents //
             this.checkedLabels = res.data.data.checkedlabel
           },
@@ -337,14 +337,14 @@
           .then(_ => {//确认关闭弹窗时执行
             // console.log("*********1******")
             var labelidlist = new Array()
-            var labelnamelist = new Array()
+            var label_namelist = new Array()
             $.each(this.checkedLabels, function (i, n) {
               var labelinfo = n.split(",")
               labelidlist.push(parseInt(labelinfo[0]))
-              labelnamelist.push(labelinfo[1])
+              label_namelist.push(labelinfo[1])
             })
             this.form.labelid=JSON.stringify(labelidlist)
-            this.form.labelname=labelnamelist.join(",")
+            this.form.label_name=label_namelist.join(",")
             done()  //关闭弹窗
           })
           .catch(_ => {//取消关闭弹窗时执行
@@ -361,7 +361,7 @@
         formdata.append('label', value)
         this.$axios({
           method: "post",
-          url: "/blog/create_label/",
+          url: "/vue_blog/create_label/",
           data:formdata,
           params: {}
         }).then(
@@ -402,7 +402,7 @@
         formdata.append('article_kind', value)
         this.$axios({
           method: "post",
-          url: "/blog/create_article_kind/",
+          url: "/vue_blog/create_article_kind/",
           data:formdata,
           params: {}
         }).then(

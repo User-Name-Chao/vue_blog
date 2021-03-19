@@ -248,7 +248,7 @@
         formdata.append('video_file', file.file)
         this.$axios({
           // 请求地址
-          url: '/blog/upload_video/',
+          url: '/vue_blog/upload_video/',
           method: 'post',
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data'}

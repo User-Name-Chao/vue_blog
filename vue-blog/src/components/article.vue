@@ -60,7 +60,7 @@
         // get请求
         this.$axios({
           method: "get",
-          url: "/blog/get_article_detail/",
+          url: "/vue_blog/get_article_detail/",
           params: {
             id: this.article_id,
           }

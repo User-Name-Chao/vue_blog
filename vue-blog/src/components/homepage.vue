@@ -14,7 +14,7 @@
               :to="{path:'/list',query:{Labelid:item.id}}"
               :class="'cor'+id%9"
          exact-active-class="Label"
-            >{{item.labelname}}</router-link>
+            >{{item.label_name}}</router-link>
           </div>
         </div>
         <div class="readmore-content">
@@ -67,7 +67,7 @@ export default {
     getlabel() {
       this.$axios({
         method: "get",
-        url: "/blog/get_label_list/",
+        url: "/vue_blog/get_label_list/",
         params: {}
       }).then(
         res => {
@@ -82,7 +82,7 @@ export default {
     getcolumn() {
       this.$axios({
         method: "get",
-        url: "/blog/get_column_list/",
+        url: "/vue_blog/get_column_list/",
         params: {}
       }).then(
         res => {
@@ -97,7 +97,7 @@ export default {
     gettime() {
       this.$axios({
         method: "get",
-        url: "/blog/get_time_list/",
+        url: "/vue_blog/get_time_list/",
         params: {}
       }).then(
         res => {

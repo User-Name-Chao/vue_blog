@@ -77,7 +77,7 @@ export default {
     getallarticlelist(thispage) {
       this.$axios({
         method: "post",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           page: thispage
         })
@@ -105,7 +105,7 @@ export default {
     getLabelarticlelist(thispage) {
       this.$axios({
         method: "post",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           Labelid: this.Labelid,
           page: thispage
@@ -134,7 +134,7 @@ export default {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           columnid: this.seriesid,
           page: thispage
@@ -162,7 +162,7 @@ export default {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           releasetimes: this.releasetimes,
           page: thispage
@@ -190,7 +190,7 @@ export default {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           search: this.search,
           page: thispage
@@ -218,7 +218,7 @@ export default {
     getpagelabelarticlelist(thispage) {
       this.$axios({
         method: "post",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           Label: this.Labelid,
           page: thispage
@@ -247,7 +247,7 @@ export default {
     getpageseriesarticlelist(thispage) {
       this.$axios({
         method: "post",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           seriesid: this.seriesid,
           page: thispage
@@ -277,7 +277,7 @@ export default {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           page: thispage
         })
@@ -306,7 +306,7 @@ export default {
       this.$axios({
         method: "post",
         // url: "/json/article/pageQuery",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           page: thispage,
           releasetimes:this.releasetimes,
@@ -335,7 +335,7 @@ export default {
     getpagesearcharticlelist(thispage) {
       this.$axios({
         method: "post",
-        url: "/blog/get_blog_list/",
+        url: "/vue_blog/get_blog_list/",
         data: this.qs.stringify({
           page: thispage,
           search:this.search,
