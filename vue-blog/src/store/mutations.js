@@ -4,6 +4,18 @@ const mutations = {
   },
   updatePermissionList: (state, payload) => {
     state.permissionList = payload
+  },
+  setRouterList(state, data) {
+    state.routerList = data
+  },
+  updateRouterList: (state, payload) => {
+    state.routerList = payload
+  },
+  setMents(state, data) {
+    state.ments = data
+  },
+  updateMents: (state, payload) => {
+    state.ments = payload
   }
 }
 export default mutations

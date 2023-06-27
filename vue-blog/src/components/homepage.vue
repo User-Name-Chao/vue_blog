@@ -41,10 +41,11 @@
           </div>
         </div>
         <div class="readnotice-content">
-          <h4 class="readmore-header">个人信息-{{store_name}}</h4>
-          <div class="xinxi"><img src="../assets/img/csdn.png" alt=""> <a href="#" target=“_blank”>&ensp;&ensp;***</a></div>
-        <div class="xinxi"><img src="../assets/img/qq.png" alt="">&ensp;&ensp;***</div>
-       <div class="xinxi"><img src="../assets/img/mail.png" alt=""> &ensp;&ensp;***@gmail.com</div>
+          <h4 class="readmore-header">个人信息-{{ store_name }}</h4>
+          <div class="xinxi"><img src="../assets/img/csdn.png" alt=""> <a href="#" target=“_blank”>&ensp;&ensp;***</a>
+          </div>
+          <div class="xinxi"><img src="../assets/img/qq.png" alt="">&ensp;&ensp;***</div>
+          <div class="xinxi"><img src="../assets/img/mail.png" alt=""> &ensp;&ensp;***@gmail.com</div>
         </div>
       </div>
     </div>
@@ -52,10 +53,13 @@
 </template>
 
 <script>
+import store from "../store/store";
 export default {
   name: "homepage",
   data() {
     return {
+      isCollapse: false,
+      routerList: store.state.ments,
       Labellist: [],
       serieslist: [],
       timelist: [],

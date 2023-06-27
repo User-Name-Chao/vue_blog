@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    <el-card style="height: 610px;">-->
-      <quill-editor style="background-color: white;min-height: 900px"
+      <quill-editor id="quill_editor"
                     v-model="content"
                     ref="myQuillEditor"
                     :options="editorOption"
@@ -278,6 +278,13 @@
 </script>
 
 <style lang="scss">
+  #quill_editor {
+    background-color: white;
+    min-height: 900px;
+    width: 80%;
+    margin-left: 10%;
+  }
+
   /*.quill-editor{*/
   /*  width: 800px;*/
   /*}*/

@@ -480,4 +480,14 @@
   .image {
     max-height: 120px;
   }
+
+  .el-card {
+    border: 1px solid #EBEEF5;
+    background-color: #FFF;
+    color: #303133;
+    -webkit-transition: .3s;
+    transition: .3s;
+    width: 80%;
+    margin-left: 10%;
+  }
 </style>

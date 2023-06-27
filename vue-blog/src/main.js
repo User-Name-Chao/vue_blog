@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import routers from './router'
 import './assets/css/common.css'
 import './assets/css/input_cat.css'
 import './assets/mdcss/cmdcss.css';
@@ -17,8 +17,8 @@ Vue.use(ElementUI);
 import axios from 'axios'
 //aciox基础url
 
-axios.defaults.baseURL = 'http://39.98.139.205:81/';
-// axios.defaults.baseURL = 'http://localhost:8081/';
+// axios.defaults.baseURL = 'http://39.98.139.205:81/';
+axios.defaults.baseURL = 'http://localhost:8081/';
 
 //将axios写成vue的原型属性
 Vue.prototype.$axios = axios;
@@ -32,7 +32,7 @@ Vue.prototype.qs = qs;
 // Vue.use(Vuex)
 import store from './store/store'
 
-Vue.use(router)
+Vue.use(routers)
 Vue.config.productionTip = false
 //导入时间插件
 import moment from 'moment';
@@ -44,7 +44,7 @@ Vue.filter('dataFormat',function (datastr,pattern="YYYY-MM-DD HH:mm"){
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+  router:routers,
   store,
   components: { App },
   template: '<App/>'
